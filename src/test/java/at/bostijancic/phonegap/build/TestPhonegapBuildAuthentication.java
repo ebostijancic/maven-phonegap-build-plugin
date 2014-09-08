@@ -2,9 +2,10 @@ package at.bostijancic.phonegap.build;
 
 import java.io.IOException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import at.bostijancic.phonegap.build.PhoneGapBuildAuthentication.AuthResponse;
 
 public class TestPhonegapBuildAuthentication {
 	
@@ -12,11 +13,11 @@ public class TestPhonegapBuildAuthentication {
 	public void shouldAuthenticateWithCorrectCredentials() throws IOException {
 		final PhoneGapBuildAuthentication authentication = new PhoneGapBuildAuthentication();
 		
-		final String accessToken = authentication.authenticate("username", "password");
+		final AuthResponse response = authentication.authenticate("username", "password");
 		
-		Assert.assertTrue(StringUtils.isNotBlank(accessToken));
+		Assert.assertTrue(response.isSuccess());
 		
-		System.out.println(accessToken);
+		System.out.println(response.getToken());
 	}
 	
 	@Test
