@@ -53,6 +53,13 @@ public class PhoneGapBuildAuthentication {
 		return getAuthTokenFromResponse(response); 
 	}
 
+	/**
+	 * Method will provide BasicAuthentication header for given
+	 * username and password.
+	 * @param username
+	 * @param password
+	 * @return BasicAuthentication header for username and password.
+	 */
 	private HttpHeaders getAuthHeaders(String username, String password) {
 		final HttpHeaders authHeaders = new HttpHeaders();
 		authHeaders.setBasicAuthentication(username, password);
