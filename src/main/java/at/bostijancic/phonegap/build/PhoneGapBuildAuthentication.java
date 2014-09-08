@@ -1,15 +1,33 @@
 package at.bostijancic.phonegap.build;
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.Mojo;
+import java.io.IOException;
 
-@Mojo(name = "auth")
-public class PhoneGapBuildAuthentication extends AbstractMojo {
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
-	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		throw new RuntimeException("Implement this.");
+
+/**
+ *	
+ * @author ebostijancic 08.09.2014
+ */
+public class PhoneGapBuildAuthentication {
+
+	public String authenticate(String username, String password) throws IOException {
+		NetHttpTransport httpTransport = new NetHttpTransport();
+		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+		
+		
+		final HttpRequest authRequest = requestFactory.buildPostRequest(new GenericUrl("https://build.phonegap.com/token"), null);
+		final HttpHeaders authHeaders = new HttpHeaders();
+		
+		authHeaders.setBasicAuthentication(username, password);
+		authRequest.setHeaders(authHeaders);
+		
+		authRequest.setHeaders(authHeaders);
+				
+		return authRequest.execute().getStatusMessage();
 	}
 }
